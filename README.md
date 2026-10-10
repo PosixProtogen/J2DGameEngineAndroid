@@ -8,7 +8,7 @@ O código do app está em Java 17. O pacote é `com.asuran.j2dgameengine`.
 
 ## O jogo
 
-![Nave atirando nos asteroides, com o contador na tela](docs/jogo_exemplo.png)
+![Nave atirando nos asteroides, com o contador na tela](docs/jogo_exemplo.gif)
 
 É um jogo de nave. Asteroides descem pela tela e o objetivo é destruir o maior número possível, atirando neles. Cada asteroide destruído soma um no contador. Se um asteroide acerta a nave, o contador volta para zero.
 
