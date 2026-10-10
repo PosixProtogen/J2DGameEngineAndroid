@@ -6,7 +6,7 @@ O código é de quem estava aprendendo: direto, com pouca abstração e com as m
 
 O código do app está em Java 17. O pacote é `com.asuran.j2dgameengine`.
 
-## O jogo
+## Demonstração prática
 
 ![Nave atirando nos asteroides, com o contador na tela](docs/jogo_exemplo.gif)
 
