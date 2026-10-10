@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/J2DGameEngineTheme">
         <activity
-            android:name="com.posixprotogen.j2dgameengine.MainActivity"
+            android:name="com.posixprotogen.j2dgameengine.core.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.posixprotogen.j2dgameengine;
+package com.posixprotogen.j2dgameengine.core;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
@@ -9,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
-
-import com.posixprotogen.j2dgameengine.core.RenderView;
 
 public class MainActivity extends AppCompatActivity {
 
