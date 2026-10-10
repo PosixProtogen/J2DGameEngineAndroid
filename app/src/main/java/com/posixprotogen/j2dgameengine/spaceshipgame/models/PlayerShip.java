@@ -18,7 +18,6 @@ public class PlayerShip extends AbstractEntity {
     private GLRect hitboxb;
     private float dHitbox = 0.04f;
     private GLRect touchHitbox;
-    private ArrayList<LaserShot> shots = new ArrayList<>();
     private boolean fire = false;
 
     @Override
@@ -39,16 +38,7 @@ public class PlayerShip extends AbstractEntity {
         hitboxb.setPos(posX, (h+dHitbox));
         touchHitbox.setPos(posX, h);
 
-        ArrayList<LaserShot> shotsAlive = new ArrayList();
-        for(LaserShot a : shots){
-            if(a.isAlive()){
-                shotsAlive.add(a);
-            }
-        }
-
-        shots = shotsAlive;
-
-        if(fire){
+        if (fire) {
             fire();
         }
     }
@@ -67,11 +57,11 @@ public class PlayerShip extends AbstractEntity {
 
     public boolean isHitMe(GLRect glRect){
 
-        if(hitboxa.intersect(glRect)){
+        if (hitboxa.intersect(glRect)){
             return true;
         }
 
-        if(hitboxb.intersect(glRect)){
+        if (hitboxb.intersect(glRect)){
             return true;
         }
 
@@ -92,7 +82,7 @@ public class PlayerShip extends AbstractEntity {
         if (System.currentTimeMillis() > timeElapse+300){
             LaserShot laserShot = new LaserShot(posX);
             getGameContext().addEntity(laserShot);
-            shots.add(laserShot);
+
             timeElapse = System.currentTimeMillis();
         }
     }
@@ -103,9 +93,5 @@ public class PlayerShip extends AbstractEntity {
 
     public void stopFire(){
         fire = false;
-    }
-
-    public ArrayList<LaserShot> getShots() {
-        return shots;
     }
 }

@@ -54,7 +54,7 @@ public class Asteroid extends AbstractEntity {
         }
 
         if(h > 1.1f){
-            alive = false;
+            die();
         }
 
         hitbox.setPos(posX, h);
@@ -69,7 +69,7 @@ public class Asteroid extends AbstractEntity {
     public void explode() {
         getGameContext().addEntity(new Explosion(posX, h, size, speed));
 
-        alive = false;
+        die();
     }
 
     public GLRect getHitbox(){

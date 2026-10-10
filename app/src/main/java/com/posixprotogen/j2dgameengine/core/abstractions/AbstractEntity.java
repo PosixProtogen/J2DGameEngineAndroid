@@ -8,7 +8,7 @@ import com.posixprotogen.j2dgameengine.core.utils.GLVec2f;
 
 public abstract class AbstractEntity implements IEntity {
 
-    protected boolean alive = true;
+    private boolean alive = true;
     protected int layer = 0;
     protected GLVec2f position = new GLVec2f(0, 0);
     private GameContext gameContext;
@@ -41,6 +41,11 @@ public abstract class AbstractEntity implements IEntity {
     @Override
     public boolean isAlive() {
         return alive;
+    }
+
+    public void die() {
+        alive = false;
+        getGameContext().removeEntity(this);
     }
 
     public GameContext getGameContext() {

@@ -15,7 +15,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class GameEngine {
 
-
     private int framesPerSecond;
     private Context context;
     private RendererSurfaceView rendererSurfaceView;
@@ -28,7 +27,7 @@ public class GameEngine {
         this.context = context;
 
         RendererEngine rendererEngine = new RendererEngine();
-        rendererEngine.setRenderListener(new RenderListenerImp(this));
+        rendererEngine.setRenderListener(new RenderListenerImp());
 
         this.rendererSurfaceView = new RendererSurfaceView(context, rendererEngine);
 
@@ -40,12 +39,6 @@ public class GameEngine {
     }
 
     class RenderListenerImp implements RenderListener {
-
-        private GameEngine gameEngine;
-
-        public RenderListenerImp(GameEngine gameEngine) {
-            this.gameEngine = gameEngine;
-        }
 
         @Override
         public void onDisplayChanged(float w, float x, float h, float y) {
@@ -105,27 +98,27 @@ public class GameEngine {
                 AbstractEntity newEntity = pending.get(i);
                 newEntity.setGameContext(gameWorld);
                 newEntity.setup();
-                gameWorld.getEntities().add(newEntity);
+
+                gameWorld.addToWorld(newEntity);
             }
         }
 
         @Override
         public void onUpdate() {
+            for (AbstractEntity deadEntity : gameWorld.getDeadEntities()) {
+                gameWorld.removeFromWorld(deadEntity);
+            }
+            gameWorld.setDeadEntities(new ArrayList<>());
+
             List<AbstractEntity> entities = gameWorld.getEntities();
-            List<AbstractEntity> entitiesUpdated = new ArrayList<>();
 
             for (int i = 0; i < entities.size(); i++) {
                 AbstractEntity entity = entities.get(i);
-                entity.update();
 
-                if(entity.isAlive()){
-                    entitiesUpdated.add(entity);
-
-                } else {
-                    System.out.println("Entity deleted: " + entity);
+                if (entity.isAlive()) {
+                    entity.update();
                 }
             }
-            gameWorld.setEntities(entitiesUpdated);
         }
 
         @Override
@@ -133,7 +126,11 @@ public class GameEngine {
             List<AbstractEntity> entities = gameWorld.getEntities();
 
             for (int i = 0; i < entities.size(); i++) {
-                entities.get(i).draw();
+                AbstractEntity entity = entities.get(i);
+
+                if (entity.isAlive()) {
+                    entity.draw();
+                }
             }
         }
     }

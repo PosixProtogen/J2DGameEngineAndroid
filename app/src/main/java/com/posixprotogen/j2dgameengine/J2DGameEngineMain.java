@@ -5,6 +5,7 @@ import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.spaceshipgame.SpaceShipMain;
 
 public class J2DGameEngineMain {
+
     public void setupGame(GameContext gameContext){
         SpriteLoader spriteLoader = gameContext.getSpriteLoader();
         spriteLoader.addTexture("background.png");

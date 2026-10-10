@@ -34,9 +34,9 @@ public class Explosion extends AbstractEntity {
     public void update() {
         y += speed * getGameContext().getLastFrameTime();
 
-        if(System.currentTimeMillis() > timeElapse+64){
+        if (System.currentTimeMillis() > timeElapse+64) {
             if(explosion.nextSprite()){
-                alive = false;
+                die();
             }
             timeElapse = System.currentTimeMillis();
         }

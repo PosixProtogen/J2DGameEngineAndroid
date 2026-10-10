@@ -6,7 +6,6 @@ import com.posixprotogen.j2dgameengine.spaceshipgame.models.ComboText;
 import com.posixprotogen.j2dgameengine.spaceshipgame.models.LaserShot;
 import com.posixprotogen.j2dgameengine.spaceshipgame.models.PlayerShip;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionCore extends AbstractEntity {
@@ -26,15 +25,15 @@ public class CollisionCore extends AbstractEntity {
 
     @Override
     public void update() {
-        List<Asteroid> asteroidsAlive = getGameContext().getEntitiesAlive(Asteroid.class);
-        ArrayList<LaserShot> shots = playerShip.getShots();
+        List<Asteroid> asteroidsAlive = getGameContext().getEntities(Asteroid.class);
+        List<LaserShot> laserShots = getGameContext().getEntities(LaserShot.class);
 
         for (Asteroid asteroid : asteroidsAlive) {
             if (asteroid.getHitbox() == null){
                 continue;
             }
 
-            for (LaserShot laserShot : shots) {
+            for (LaserShot laserShot : laserShots) {
                 if (laserShot.getHitbox() == null){
                     continue;
                 }

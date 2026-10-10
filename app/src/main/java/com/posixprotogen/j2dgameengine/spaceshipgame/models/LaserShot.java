@@ -32,8 +32,8 @@ public class LaserShot extends AbstractEntity {
         hitbox.setPos(w, h);
         h -= speed * getGameContext().getLastFrameTime();
 
-        if(h<0) {
-            alive = false;
+        if (h<0) {
+            die();
         }
     }
 
@@ -48,6 +48,6 @@ public class LaserShot extends AbstractEntity {
     }
 
     public void destroy(){
-        alive = false;
+        die();
     }
 }
