@@ -65,6 +65,9 @@ public class GameEngine {
             SpriteLoader spriteLoader = new SpriteLoader(gl, context);
             gameWorld.setSpriteLoader(spriteLoader);
 
+            SoundPlayer soundPlayer = new SoundPlayer(context);
+            gameWorld.setSoundPlayer(soundPlayer);
+
             new J2DGameEngineMain().setupGame(gameWorld);
 
             rendererSurfaceView.setTouchListener((event, x, y) -> {

@@ -28,6 +28,8 @@ class GameWorld implements GameContext {
 
     private J2DCanvas j2DCanvas;
 
+    private SoundPlayer soundPlayer;
+
     @Override
     public float getLastFrameTime() {
         return lastFrameTime;
@@ -70,6 +72,11 @@ class GameWorld implements GameContext {
         return j2DCanvas;
     }
 
+    @Override
+    public SoundPlayer getSoundPlayer() {
+        return soundPlayer;
+    }
+
     public void setLastFrameTime(float lastFrameTime) {
         this.lastFrameTime = lastFrameTime;
     }
@@ -108,6 +115,10 @@ class GameWorld implements GameContext {
 
     public void setJ2DCanvas(J2DCanvas j2DCanvas) {
         this.j2DCanvas = j2DCanvas;
+    }
+
+    public void setSoundPlayer(SoundPlayer soundPlayer) {
+        this.soundPlayer = soundPlayer;
     }
 
     public void addToWorld(AbstractEntity entity) {

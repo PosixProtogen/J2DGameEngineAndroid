@@ -22,4 +22,6 @@ public interface GameContext {
     SpriteLoader getSpriteLoader();
 
     J2DCanvas getJ2DCanvas();
+
+    SoundPlayer getSoundPlayer();
 }

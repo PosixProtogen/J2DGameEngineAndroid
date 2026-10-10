@@ -25,6 +25,8 @@ public class LaserShot extends AbstractEntity {
         shot.resize(0.06f);
         hitbox = new GLRect(shot.getWidht(), shot.getHeight(), w, h);
         hitbox.setPos(w, h);
+
+        getGameContext().getSoundPlayer().playSound("sounds/laser_shot.wav", 5f);
     }
 
     @Override

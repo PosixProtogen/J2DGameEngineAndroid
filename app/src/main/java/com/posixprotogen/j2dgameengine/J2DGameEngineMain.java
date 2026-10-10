@@ -16,6 +16,9 @@ public class J2DGameEngineMain {
         spriteLoader.addTexture("shot.png");
         spriteLoader.addTexture("alphabet.png", 17, 3);
 
+        gameContext.getSoundPlayer().addSound("sounds/laser_shot.wav");
+        gameContext.getSoundPlayer().addSound("sounds/explosion.wav");
+
         gameContext.addEntity(new SpaceShipMain());
     }
 }

@@ -24,8 +24,9 @@ public class Explosion extends AbstractEntity {
     @Override
     public void setup() {
         explosion = getGameContext().getSpriteLoader().getTexture("explosionb.png");
-
         explosion.resize(size);
+
+        getGameContext().getSoundPlayer().playSound("sounds/explosion.wav", 5f);
     }
 
     long timeElapse = System.currentTimeMillis();

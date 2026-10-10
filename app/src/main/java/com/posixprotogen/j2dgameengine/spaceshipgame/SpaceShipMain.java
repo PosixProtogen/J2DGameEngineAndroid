@@ -27,6 +27,8 @@ public class SpaceShipMain extends AbstractEntity {
 
         getGameContext().addEntity(new CollisionCore(playerShip));
         getGameContext().addTouchListener(new Touch());
+
+        getGameContext().getSoundPlayer().playMusic("musics/The_spaceship_is_ready.mp3", 8f, true, 45);
     }
 
     class Touch implements GestureListener{
