@@ -1,0 +1,48 @@
+package com.posixprotogen.j2dgameengine.spaceshipgame.models;
+
+import com.posixprotogen.j2dgameengine.core.J2DCanvas;
+import com.posixprotogen.j2dgameengine.core.SpriteLoader;
+import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
+
+public class Explosion extends AbstractEntity {
+
+    private GLSprite explosion;
+    private float x;
+    private float y;
+    private float size;
+    private float speed;
+
+    public Explosion(float x, float y, float size, float speed) {
+        this.x = x;
+        this.y = y;
+        this.size = size * 2;
+        this.speed = speed;
+    }
+
+    @Override
+    public void setup(SpriteLoader spriteLoader) {
+        explosion = spriteLoader.getTexture("explosionb.png");
+
+        explosion.resize(size);
+    }
+
+    long timeElapse = System.currentTimeMillis();
+
+    @Override
+    public void update() {
+        y += speed * getGameEngine().getLastFrameTime();
+
+        if(System.currentTimeMillis() > timeElapse+64){
+            if(explosion.nextSprite()){
+                alive = false;
+            }
+            timeElapse = System.currentTimeMillis();
+        }
+    }
+
+    @Override
+    public void draw(J2DCanvas j2d) {
+        j2d.drawSprite(explosion, x, y);
+    }
+}

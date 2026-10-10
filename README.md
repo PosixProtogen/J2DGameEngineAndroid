@@ -14,7 +14,7 @@ O código do app está em Java 17. O pacote é `com.asuran.j2dgameengine`.
 
 Segurar o dedo em cima da nave move ela e mantém o tiro. Soltar para o disparo. O fundo rola enquanto os asteroides continuam aparecendo, então a partida não tem fim: a meta é sustentar a sequência.
 
-`J2DMain` carrega as texturas e coloca `SpaceShipMain` no motor. `CollisionCore` compara os tiros e a nave com os asteroides, e `ComboText` desenha o número na tela.
+`J2DGameEngineMain` carrega as texturas e coloca `SpaceShipMain` no motor. `CollisionCore` compara os tiros e a nave com os asteroides, e `ComboText` desenha o número na tela.
 
 ## Como rodar
 
@@ -44,8 +44,8 @@ O tipo `release` existe, mas o projeto não tem chave de assinatura. Para um APK
 
 | Pasta | Função |
 |---|---|
-| `GameEngine`, `RendererGL`, `RenderView`, `J2DCanvas` | Loop, desenho e superfície OpenGL |
-| `entitiesclasses` | `IEntity`: `setup`, `update`, `draw` |
+| `GameEngine`, `RendererEngine`, `RenderView`, `J2DCanvas` | Loop, desenho e superfície OpenGL |
+| `abstractions` | `IEntity`: `setup`, `update`, `draw` |
 | `listeners` | Toque e frame |
 | `utils` | Sprite, retângulo e vetor |
 | `spaceshipgame` | Jogo de exemplo |

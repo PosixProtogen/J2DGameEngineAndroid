@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = 'com.asuran.j2dgameengine'
+    namespace = 'com.posixprotogen.j2dgameengine'
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.asuran.j2dgameengine"
+        applicationId = "com.posixprotogen.j2dgameengine"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
