@@ -43,28 +43,28 @@ public class SpriteLoader {
         }
     }
 
-    public void addTexture(String file, int cutW, int cutH){
-        Bitmap image = null;
+    public void addTexture(String file, int cutW, int cutH) {
+        Bitmap bitmap = null;
         try {
-            image = BitmapFactory.decodeStream(context.getAssets().open(file));
+            bitmap = BitmapFactory.decodeStream(context.getAssets().open(file));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
-        Bitmap[] tempImage = new Bitmap[cutH*cutW];
-        int w = image.getWidth()/cutW;
-        int h = image.getHeight()/cutH;
+        Bitmap[] bitmapArray = new Bitmap[cutH*cutW];
+        int w = bitmap.getWidth()/cutW;
+        int h = bitmap.getHeight()/cutH;
 
         for(int i = 0;i<cutH;i++){
             for (int j=0;j<cutW;j++){
-                tempImage[j+(cutW*i)] = Bitmap.createBitmap(image,j*w,i*h,w,h);
+                bitmapArray[j+(cutW*i)] = Bitmap.createBitmap(bitmap,j*w,i*h,w,h);
             }
         }
 
-        texturePool.put(file, loadImage(tempImage));
+        texturePool.put(file, loadImage(bitmapArray));
 
-        for(int i=0; i<tempImage.length; i++){
-            tempImage[i].recycle();
+        for(int i=0; i<bitmapArray.length; i++){
+            bitmapArray[i].recycle();
         }
     }
 
@@ -72,27 +72,23 @@ public class SpriteLoader {
         return new GLSprite(texturePool.get(file));
     }
 
-    private GLSprite loadImage(Bitmap[] tempImage){
-
-        float w = tempImage[0].getWidth();
-        float h = tempImage[0].getHeight();
-
+    private GLSprite loadImage(Bitmap[] bitmap) {
         float xa = -1.0f;
         float xb = 1.0f;
         float ya = 1.0f;
         float yb = -1.0f;
 
-        if(tempImage[0].getWidth() > tempImage[0].getHeight()){
+        if(bitmap[0].getWidth() > bitmap[0].getHeight()){
             float calc = 0;
 
-            calc = (float)tempImage[0].getHeight()/(float)tempImage[0].getWidth();
+            calc = (float)bitmap[0].getHeight()/(float)bitmap[0].getWidth();
             yb = yb*calc;
             ya = calc;
 
-        } else if(tempImage[0].getWidth() < tempImage[0].getHeight()) {
+        } else if(bitmap[0].getWidth() < bitmap[0].getHeight()) {
             float calc = 0.0f;
 
-            calc = (float)tempImage[0].getWidth()/(float)tempImage[0].getHeight();
+            calc = (float)bitmap[0].getWidth()/(float)bitmap[0].getHeight();
             xb = calc;
             xa = xa*calc;
         }
@@ -105,24 +101,11 @@ public class SpriteLoader {
         yb = yb*3;
 
         float vertices[] = {
-                xa, yb,  //Bottom Left
-                xb, yb,  //Bottom Right
-                xa, ya,  //Top Left
-                xb, ya   //Top Right
+                xa, yb,
+                xb, yb,
+                xa, ya,
+                xb, ya
         };
-
-        /*
-        float xa = 0.0f; //Never change this.
-        float xb = 1.0f; //Use to calc correct aspect x from image
-        float ya = 0.0f; //Never change this too D:
-        float yb = -1.0f; //Use to calc correct aspect y from image
-
-        float vertices[] = {
-            0.0f, -1.0f,  //Bottom Left
-            1.0f, -1.0f,  //Bottom Right
-            0.0f,  0.0f,  //Top Left
-            1.0f,  0.0f   //Top Right
-        };*/
 
         float[] textureCoords = {
                 0.0f, 1.0f,
@@ -146,22 +129,19 @@ public class SpriteLoader {
         mTextureBuffer.put(textureCoords);
         mTextureBuffer.position(0);
 
-        int[] textures = new int[tempImage.length];
-        int[] textureLoad = new int[tempImage.length];
+        int[] textures = new int[bitmap.length];
+        int[] textureLoad = new int[bitmap.length];
 
-        for(int i=0; i<tempImage.length; i++){
-            gl.glGenTextures(1 , textures, i); // 2
-            gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[i]); // 3
+        for (int i=0; i<bitmap.length; i++) {
+            gl.glGenTextures(1 , textures, i);
+            gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[i]);
 
-            GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, tempImage[i], 0); // 4
+            GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap[i], 0);
 
-            gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR); // 5a
-            //gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR); // 5b
+            gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
 
             textureLoad[i] = textures[i];
         }
-
         return new GLSprite(textureLoad, mFVertexBuffer, mTextureBuffer, vertices, resolution);
     }
-
 }

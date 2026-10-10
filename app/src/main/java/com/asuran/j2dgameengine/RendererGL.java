@@ -9,10 +9,12 @@ import javax.microedition.khronos.opengles.GL11;
 public class RendererGL implements GLSurfaceView.Renderer {
 
     private RenderListener renderListener;
+    private long frameTime = 0;
+    private int frameCount = 0;
+    public long currentTimeTick = System.currentTimeMillis() - 1;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-
         gl.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_FASTEST);
 
         gl.glClearColor(.5f,.5f,.5f,1.0f);
@@ -22,18 +24,15 @@ public class RendererGL implements GLSurfaceView.Renderer {
 
         gl.glMatrixMode(GL11.GL_PROJECTION);
         gl.glLoadIdentity();
-
     }
 
     private boolean loadTextures = true;
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-
         gl.glViewport(0, 0, width, height);
+
         float ratio = (float) width / height;
-//        gl.glMatrixMode(GL11.GL_PROJECTION);
-//        gl.glLoadIdentity();
         gl.glFrustumf(-ratio, ratio, -1, 1, 1, 10);
 
         renderListener.onDisplayChanged(ratio, (float)width, 1.0f, (float)height);
@@ -43,10 +42,6 @@ public class RendererGL implements GLSurfaceView.Renderer {
             loadTextures = false;
         }
     }
-
-    private long frameTime = 0;
-    private int frameCount = 0;
-    public long currentTimeTick = System.currentTimeMillis() -1;
 
     @Override
     public void onDrawFrame(GL10 gl) {

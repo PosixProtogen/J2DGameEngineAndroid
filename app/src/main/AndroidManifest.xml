@@ -7,8 +7,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="com.asuran.j2dgameengine.MainActivity">
+        android:theme="@style/J2DGameEngineTheme">
+        <activity
+            android:name="com.asuran.j2dgameengine.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

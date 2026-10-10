@@ -30,12 +30,11 @@ public class J2DCanvas {
     }
 
     private void loadHitboxTex(Context context){
-
         Bitmap image = null;
         try {
             image = BitmapFactory.decodeStream(context.getAssets().open("rectbox.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         float[] textureCoords = {
@@ -55,13 +54,12 @@ public class J2DCanvas {
 
         int[] textid = new int[1];
 
-        gl.glGenTextures(1 , textid, 0); // 2
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, textid[0]); // 3
+        gl.glGenTextures(1 , textid, 0);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, textid[0]);
 
-        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, image, 0); // 4
+        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, image, 0);
 
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR); // 5a
-        //gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR); // 5b
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
 
         idTexHitbox = textid[0];
     }
@@ -71,41 +69,22 @@ public class J2DCanvas {
         float calcX = display.v0*3*(-1) + 3*x*2;
         float calcY = 3 - 3*y*2;
 
-        //gl.glPushMatrix();
-
         gl.glMatrixMode(GL11.GL_MODELVIEW);
         gl.glLoadIdentity();
-
-//        gl.glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-
-        //gl.glTranslatef(-3.0f,0.0f, -3.0f);
-
         gl.glTranslatef(calcX,calcY, -3.0f);
-
         gl.glRotatef(glSprite.getAngle(),0.0f,0.0f,1.0f);
-
-        //GL11 gl11 = (GL11) gl;
         gl.glVertexPointer(2, GL10.GL_FLOAT, 0, glSprite.getVertexBuffer());
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-        //gl.glColorPointer(4, GL10.GL_UNSIGNED_BYTE, 0, mColorBuffer);
-        //gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-
-        gl.glEnable(GL10.GL_TEXTURE_2D); 				//1
-        gl.glEnable(GL10.GL_BLEND);					//2
-
-        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);			//3
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, glSprite.getTextureId());		//4
-
-        gl.glTexCoordPointer(2, GL10.GL_FLOAT,0, glSprite.getTextureBuffer());	//5
-        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);		//6
-
-        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);			//7
-
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, glSprite.getTextureId());
+        gl.glTexCoordPointer(2, GL10.GL_FLOAT,0, glSprite.getTextureBuffer());
+        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
         gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-        gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);		//8
-
-        //gl.glPopMatrix();
+        gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
     }
 
     public void drawSpritePosition(GLSprite glSprite, float x, float y){
@@ -114,37 +93,22 @@ public class J2DCanvas {
         float calcY = 3 - 3*y*2;
 
         gl.glPushMatrix();
-
         gl.glMatrixMode(GL11.GL_MODELVIEW);
         gl.glLoadIdentity();
-
-        //gl.glTranslatef(-3.0f,0.0f, -3.0f);
-
         gl.glTranslatef(calcX,calcY, -3.0f);
-
         gl.glRotatef(glSprite.getAngle(),0.0f,0.0f,1.0f);
-
-        //GL11 gl11 = (GL11) gl;
         gl.glVertexPointer(2, GL10.GL_FLOAT, 0, glSprite.getVertexBuffer());
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-        //gl.glColorPointer(4, GL10.GL_UNSIGNED_BYTE, 0, mColorBuffer);
-        //gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-
-        gl.glEnable(GL10.GL_TEXTURE_2D); 				//1
-        gl.glEnable(GL10.GL_BLEND);					//2
-
-        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);			//3
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, glSprite.getTextureId());		//4
-
-        gl.glTexCoordPointer(2, GL10.GL_FLOAT,0, glSprite.getTextureBuffer());	//5
-        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);		//6
-
-        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);			//7
-
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, glSprite.getTextureId());
+        gl.glTexCoordPointer(2, GL10.GL_FLOAT,0, glSprite.getTextureBuffer());
+        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
         gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-        gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);		//8
-
+        gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glPopMatrix();
     }
 
@@ -156,38 +120,20 @@ public class J2DCanvas {
         float calcX = display.v0*3*(-1) + 3*glRect.getW()*2;
         float calcY = 3 - 3*glRect.getH()*2;
 
-        //gl.glPushMatrix();
-
         gl.glMatrixMode(GL11.GL_MODELVIEW);
         gl.glLoadIdentity();
-
-        //gl.glTranslatef(-3.0f,0.0f, -3.0f);
-
         gl.glTranslatef(calcX,calcY, -3.0f);
-
-        //gl.glRotatef(glSprite.getAngle(),0.0f,0.0f,1.0f);
-
-        //GL11 gl11 = (GL11) gl;
         gl.glVertexPointer(2, GL10.GL_FLOAT, 0, glRect.getVertexBuffer());
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-        //gl.glColorPointer(4, GL10.GL_UNSIGNED_BYTE, 0, mColorBuffer);
-        //gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-
         gl.glEnable(GL10.GL_TEXTURE_2D); 				//1
         gl.glEnable(GL10.GL_BLEND);					//2
-
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);			//3
         gl.glBindTexture(GL10.GL_TEXTURE_2D, idTexHitbox);		//4
-
         gl.glTexCoordPointer(2, GL10.GL_FLOAT,0, glRect.getTextureBuffer());	//5
         gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);		//6
-
         gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);			//7
-
         gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);		//8
-
-        //gl.glPopMatrix();
     }
 }
