@@ -1,5 +1,6 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
+import com.posixprotogen.j2dgameengine.core.GameContext;
 import com.posixprotogen.j2dgameengine.core.J2DCanvas;
 import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
@@ -21,8 +22,8 @@ public class Explosion extends AbstractEntity {
     }
 
     @Override
-    public void setup(SpriteLoader spriteLoader) {
-        explosion = spriteLoader.getTexture("explosionb.png");
+    public void setup() {
+        explosion = getGameContext().getSpriteLoader().getTexture("explosionb.png");
 
         explosion.resize(size);
     }
@@ -31,7 +32,7 @@ public class Explosion extends AbstractEntity {
 
     @Override
     public void update() {
-        y += speed * getGameEngine().getLastFrameTime();
+        y += speed * getGameContext().getLastFrameTime();
 
         if(System.currentTimeMillis() > timeElapse+64){
             if(explosion.nextSprite()){
@@ -42,7 +43,7 @@ public class Explosion extends AbstractEntity {
     }
 
     @Override
-    public void draw(J2DCanvas j2d) {
-        j2d.drawSprite(explosion, x, y);
+    public void draw() {
+        getGameContext().getJ2DCanvas().drawSprite(explosion, x, y);
     }
 }

@@ -6,14 +6,12 @@ import android.view.MotionEvent;
 
 import com.posixprotogen.j2dgameengine.core.listeners.TouchListener;
 
-public class RenderView extends GLSurfaceView {
+public class RendererSurfaceView extends GLSurfaceView {
 
     private TouchListener touchListener;
 
-    public RenderView(Context context) {
+    public RendererSurfaceView(Context context, RendererEngine renderer) {
         super(context);
-        RendererEngine renderer = new RendererEngine();
-        new GameEngine(context, renderer, this);
         setRenderer(renderer);
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }

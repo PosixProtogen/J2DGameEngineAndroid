@@ -1,7 +1,6 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame;
 
 
-import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
 import com.posixprotogen.j2dgameengine.core.listeners.GestureListener;
 import com.posixprotogen.j2dgameengine.core.utils.GLRect;
@@ -16,18 +15,18 @@ public class SpaceShipMain extends AbstractEntity {
     private GLRect pointer = new GLRect(0.1f, 0.1f, 0.0f, 0.0f);
 
     @Override
-    public void setup(SpriteLoader spriteLoader) {
+    public void setup() {
         spaceBackground = new SpaceBackground();
-        getGameEngine().addEntity(spaceBackground);
+        getGameContext().addEntity(spaceBackground);
 
         playerShip = new PlayerShip();
-        getGameEngine().addEntity(playerShip);
+        getGameContext().addEntity(playerShip);
 
         AsteroidRandom asteroidRandom = new AsteroidRandom();
-        getGameEngine().addEntity(asteroidRandom);
+        getGameContext().addEntity(asteroidRandom);
 
-        getGameEngine().addEntity(new CollisionCore(playerShip, asteroidRandom));
-        getGameEngine().addTouchListener(new Touch());
+        getGameContext().addEntity(new CollisionCore(playerShip));
+        getGameContext().addTouchListener(new Touch());
     }
 
     class Touch implements GestureListener{

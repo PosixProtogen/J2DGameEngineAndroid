@@ -44,7 +44,7 @@ O tipo `release` existe, mas o projeto não tem chave de assinatura. Para um APK
 
 | Pasta | Função |
 |---|---|
-| `GameEngine`, `RendererEngine`, `RenderView`, `J2DCanvas` | Loop, desenho e superfície OpenGL |
+| `GameEngine`, `RendererEngine`, `RendererSurfaceView`, `J2DCanvas` | Loop, desenho e superfície OpenGL |
 | `abstractions` | `IEntity`: `setup`, `update`, `draw` |
 | `listeners` | Toque e frame |
 | `utils` | Sprite, retângulo e vetor |

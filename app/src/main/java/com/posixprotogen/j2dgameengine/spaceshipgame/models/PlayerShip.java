@@ -1,5 +1,6 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
+import com.posixprotogen.j2dgameengine.core.GameContext;
 import com.posixprotogen.j2dgameengine.core.J2DCanvas;
 import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
@@ -21,10 +22,12 @@ public class PlayerShip extends AbstractEntity {
     private boolean fire = false;
 
     @Override
-    public void setup(SpriteLoader spriteLoader) {
+    public void setup() {
+        SpriteLoader spriteLoader = getGameContext().getSpriteLoader();
+
         shipSprite = spriteLoader.getTexture("ship.png");
         shipSprite.resize(0.2f);
-        posX = getGameEngine().getWidth() * 0.5f;
+        posX = getGameContext().getDisplay().width * 0.5f;
         hitboxa = new GLRect(shipSprite.getWidht()-(shipSprite.getWidht()*0.8f), shipSprite.getHeight()-(shipSprite.getHeight()*0.5f), posX, h);
         hitboxb = new GLRect(shipSprite.getWidht()-(shipSprite.getWidht()*0.4f), shipSprite.getHeight()-(shipSprite.getHeight()*0.85f), posX, (h+dHitbox));
         touchHitbox = new GLRect(shipSprite.getWidht(), shipSprite.getHeight(), posX, h);
@@ -51,8 +54,8 @@ public class PlayerShip extends AbstractEntity {
     }
 
     @Override
-    public void draw(J2DCanvas j2d) {
-        j2d.drawSprite(shipSprite, posX, h);
+    public void draw() {
+        getGameContext().getJ2DCanvas().drawSprite(shipSprite, posX, h);
         //j2d.drawRect(hitboxa);
         //j2d.drawRect(hitboxb);
     }
@@ -85,10 +88,10 @@ public class PlayerShip extends AbstractEntity {
 
     private long timeElapse = System.currentTimeMillis();
 
-    public void fire(){
-        if(System.currentTimeMillis() > timeElapse+300){
+    public void fire() {
+        if (System.currentTimeMillis() > timeElapse+300){
             LaserShot laserShot = new LaserShot(posX);
-            getGameEngine().addEntity(laserShot);
+            getGameContext().addEntity(laserShot);
             shots.add(laserShot);
             timeElapse = System.currentTimeMillis();
         }

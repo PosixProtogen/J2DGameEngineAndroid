@@ -52,21 +52,21 @@ public class J2DCanvas {
         mTextureBuffer.put(textureCoords);
         mTextureBuffer.position(0);
 
-        int[] textid = new int[1];
+        int[] textureIdArray = new int[1];
 
-        gl.glGenTextures(1 , textid, 0);
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, textid[0]);
+        gl.glGenTextures(1 , textureIdArray, 0);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, textureIdArray[0]);
 
         GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, image, 0);
 
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
 
-        idTexHitbox = textid[0];
+        idTexHitbox = textureIdArray[0];
     }
 
     public void drawSprite(GLSprite glSprite, float x, float y){
 
-        float calcX = display.v0*3*(-1) + 3*x*2;
+        float calcX = display.width*3*(-1) + 3*x*2;
         float calcY = 3 - 3*y*2;
 
         gl.glMatrixMode(GL11.GL_MODELVIEW);
@@ -89,7 +89,7 @@ public class J2DCanvas {
 
     public void drawSpritePosition(GLSprite glSprite, float x, float y){
 
-        float calcX = display.v0*3*(-1) + display.v0*3*x*2;
+        float calcX = display.width*3*(-1) + display.width*3*x*2;
         float calcY = 3 - 3*y*2;
 
         gl.glPushMatrix();
@@ -117,7 +117,7 @@ public class J2DCanvas {
     }
 
     public void drawRect(GLRect glRect){
-        float calcX = display.v0*3*(-1) + 3*glRect.getW()*2;
+        float calcX = display.width*3*(-1) + 3*glRect.getW()*2;
         float calcY = 3 - 3*glRect.getH()*2;
 
         gl.glMatrixMode(GL11.GL_MODELVIEW);

@@ -1,12 +1,12 @@
 package com.posixprotogen.j2dgameengine.core.utils;
 
 public class GLVec2f {
-    public float v0 = 0.0f;
-    public float v1 = 0.0f;
+    public float width = 0.0f;
+    public float height = 0.0f;
 
-    public GLVec2f(float v0, float v1){
-        this.v0 = v0;
-        this.v1 = v1;
+    public GLVec2f(float width, float height){
+        this.width = width;
+        this.height = height;
     }
 
     public GLVec2f(){

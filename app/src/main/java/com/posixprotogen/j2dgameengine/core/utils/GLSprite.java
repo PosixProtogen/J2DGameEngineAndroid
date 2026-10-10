@@ -23,10 +23,10 @@ public class GLSprite {
         this.mFVertexBuffer = mFVertexBuffer;
         this.mTextureBuffer = mTextureBuffer;
         this.vertices = vertices;
-        this.w = sizes.v0;
-        this.h = sizes.v1;
-        this.originalW = sizes.v0;
-        this.originalH = sizes.v1;
+        this.w = sizes.width;
+        this.h = sizes.height;
+        this.originalW = sizes.width;
+        this.originalH = sizes.height;
         this.originalVertices = vertices;
     }
 
@@ -46,10 +46,10 @@ public class GLSprite {
             originalVertices[i] = glSprite.getVertices()[i];
         }
 
-        this.w = glSprite.getSizes().v0;
-        this.h = glSprite.getSizes().v1;
-        this.originalW = glSprite.getSizes().v0;
-        this.originalH = glSprite.getSizes().v1;
+        this.w = glSprite.getSizes().width;
+        this.h = glSprite.getSizes().height;
+        this.originalW = glSprite.getSizes().width;
+        this.originalH = glSprite.getSizes().height;
 
         ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
         vbb.order(ByteOrder.nativeOrder());
@@ -118,8 +118,8 @@ public class GLSprite {
     }
 
     public void setSizes(GLVec2f sizes) {
-        w = sizes.v0;
-        h = sizes.v1;
+        w = sizes.width;
+        h = sizes.height;
     }
 
     public void setNumSprite(int numSprite) {

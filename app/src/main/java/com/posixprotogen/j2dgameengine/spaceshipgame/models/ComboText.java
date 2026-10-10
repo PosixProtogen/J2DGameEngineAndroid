@@ -14,8 +14,8 @@ public class ComboText extends AbstractEntity {
     private boolean hide = true;
 
     @Override
-    public void setup(SpriteLoader spriteLoader) {
-        alphabet = spriteLoader.getTexture("alphabet.png");
+    public void setup() {
+        alphabet = getGameContext().getSpriteLoader().getTexture("alphabet.png");
         alphabet.resize(0.05f);
         alphabet.setNumSprite(2);
     }
@@ -25,7 +25,7 @@ public class ComboText extends AbstractEntity {
     @Override
     public void update() {
         if(size > 0.05f){
-            size -= 0.1f * getGameEngine().getLastFrameTime();
+            size -= 0.1f * getGameContext().getLastFrameTime();
         }
 
         if (System.currentTimeMillis() > timeElapse + 2000) {
@@ -53,17 +53,17 @@ public class ComboText extends AbstractEntity {
     }
 
     @Override
-    public void draw(J2DCanvas j2d) {
+    public void draw() {
         if(!hide){
             float pos = 0.0f;
 
             for(int i=0; i<textString.length(); i++){
                 alphabet.setNumSprite(textString.charAt(i) - '0' + 26);
-                j2d.drawSpritePosition(alphabet, 0.1f + pos, 0.5f);
+                getGameContext().getJ2DCanvas().drawSpritePosition(alphabet, 0.1f + pos, 0.5f);
                 pos+=0.07;
             }
             alphabet.setNumSprite(23);
-            j2d.drawSpritePosition(alphabet, 0.1f + pos, 0.5f);
+            getGameContext().getJ2DCanvas().drawSpritePosition(alphabet, 0.1f + pos, 0.5f);
         }
     }
 }

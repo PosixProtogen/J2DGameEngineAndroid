@@ -33,12 +33,12 @@ public class SpriteLoader {
         try {
             tempImage[0] = BitmapFactory.decodeStream(context.getAssets().open(file));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         texturePool.put(file, loadImage(tempImage));
 
-        for(int i=0; i<tempImage.length; i++){
+        for (int i=0; i<tempImage.length; i++) {
             tempImage[i].recycle();
         }
     }

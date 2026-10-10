@@ -19,10 +19,12 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
 
-        RenderView renderView = new RenderView(this);
-        setContentView(renderView);
+        GameEngine gameEngine = new GameEngine();
+        RendererSurfaceView rendererSurfaceView = gameEngine.setupEngine(this);
 
-        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), renderView);
+        setContentView(rendererSurfaceView);
+
+        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), rendererSurfaceView);
         controller.hide(WindowInsetsCompat.Type.systemBars());
         controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
     }

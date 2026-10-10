@@ -1,5 +1,6 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
+import com.posixprotogen.j2dgameengine.core.GameContext;
 import com.posixprotogen.j2dgameengine.core.J2DCanvas;
 import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
@@ -29,8 +30,8 @@ public class Asteroid extends AbstractEntity {
     }
 
     @Override
-    public void setup(SpriteLoader spriteLoader) {
-        asteroid = spriteLoader.getTexture("asteroidb.png");
+    public void setup() {
+        asteroid = getGameContext().getSpriteLoader().getTexture("asteroidb.png");
         asteroid.resize(size);
         init = true;
         hitbox = new GLRect(asteroid.getWidht(), asteroid.getHeight(), posX, h);
@@ -39,7 +40,7 @@ public class Asteroid extends AbstractEntity {
 
     @Override
     public void update() {
-        h += speed * getGameEngine().getLastFrameTime();
+        h += speed * getGameContext().getLastFrameTime();
 
         if(direction == 0){
             angle += (0.1f * (speed*10));
@@ -60,13 +61,13 @@ public class Asteroid extends AbstractEntity {
     }
 
     @Override
-    public void draw(J2DCanvas j2d) {
-        j2d.drawSprite(asteroid, posX, h);
+    public void draw() {
+        getGameContext().getJ2DCanvas().drawSprite(asteroid, posX, h);
         //j2d.drawRect(hitbox);
     }
 
-    public void explode(){
-        getGameEngine().addEntity(new Explosion(posX, h, size, speed));
+    public void explode() {
+        getGameContext().addEntity(new Explosion(posX, h, size, speed));
 
         alive = false;
     }

@@ -1,9 +1,11 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
+import com.posixprotogen.j2dgameengine.core.GameContext;
 import com.posixprotogen.j2dgameengine.core.J2DCanvas;
 import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
 import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
+import com.posixprotogen.j2dgameengine.core.utils.GLVec2f;
 
 public class SpaceBackground extends AbstractEntity {
     private GLSprite background;
@@ -17,7 +19,9 @@ public class SpaceBackground extends AbstractEntity {
     private float deslocD = 0.0f;
 
     @Override
-    public void setup(SpriteLoader spriteLoader) {
+    public void setup() {
+        SpriteLoader spriteLoader = getGameContext().getSpriteLoader();
+
         background = spriteLoader.getTexture("background.png");
         starsFirstLayer = spriteLoader.getTexture("starsoneb.png");
         starsFirstLayer.resize(0.2f);
@@ -30,52 +34,56 @@ public class SpaceBackground extends AbstractEntity {
 
     @Override
     public void update() {
-        float deslocCalc = speed * getGameEngine().getLastFrameTime();
+        float deslocCalc = speed * getGameContext().getLastFrameTime();
 
         deslocA += deslocCalc;
 
-        if (deslocA>=background.getSizes().v1) {
+        if (deslocA>=background.getSizes().height) {
             deslocA = 0.0f;
         }
         deslocB += deslocCalc*1.5f;
 
-        if (deslocB>= starsFirstLayer.getSizes().v1) {
+        if (deslocB>= starsFirstLayer.getSizes().height) {
             deslocB = 0.0f;
         }
         deslocC += deslocCalc * 2;
 
-        if (deslocC>= starsSecondLayer.getSizes().v1) {
+        if (deslocC>= starsSecondLayer.getSizes().height) {
             deslocC = 0.0f;
         }
         deslocD += deslocCalc * 2.5f;
 
-        if (deslocD>= starThirdLayer.getSizes().v1) {
+        if (deslocD>= starThirdLayer.getSizes().height) {
             deslocD = 0.0f;
         }
     }
 
     @Override
-    public void draw(J2DCanvas j2d) {
-        j2d.setBackgroundColor(0.0f, 0.0f, 0.0f,0.0f);
+    public void draw() {
+        J2DCanvas j2DCanvas = getGameContext().getJ2DCanvas();
 
-        j2d.drawSprite(background, getGameEngine().getWidth()/2,(background.getSizes().v1/2*-1)+1 + deslocA);
-        j2d.drawSprite(background, getGameEngine().getWidth()/2,(background.getSizes().v1/2*-3)+1 + deslocA);
+        j2DCanvas.setBackgroundColor(0.0f, 0.0f, 0.0f,0.0f);
+
+        GLVec2f display = getGameContext().getDisplay();
+
+        j2DCanvas.drawSprite(background, display.width/2,(background.getSizes().height/2*-1)+1 + deslocA);
+        j2DCanvas.drawSprite(background, display.width/2,(background.getSizes().height/2*-3)+1 + deslocA);
 
         for (int i=0; i<4; i++) {
             for (int a=-1; a<8; a++) {
-                j2d.drawSprite(starsFirstLayer, (i* starsFirstLayer.getSizes().v0)+ starsFirstLayer.getSizes().v0/2,(a* starsFirstLayer.getSizes().v1)+(starsFirstLayer.getSizes().v1/2)+deslocB);
+                j2DCanvas.drawSprite(starsFirstLayer, (i* starsFirstLayer.getSizes().width)+ starsFirstLayer.getSizes().width/2,(a* starsFirstLayer.getSizes().height)+(starsFirstLayer.getSizes().height/2)+deslocB);
             }
         }
 
         for (int i=0; i<2; i++){
             for (int a=-1; a<4; a++) {
-                j2d.drawSprite(starsSecondLayer, (i* starsSecondLayer.getSizes().v0)+ starsSecondLayer.getSizes().v0/2,(a* starsSecondLayer.getSizes().v1)+(starsSecondLayer.getSizes().v1/2)+deslocC);
+                j2DCanvas.drawSprite(starsSecondLayer, (i* starsSecondLayer.getSizes().width)+ starsSecondLayer.getSizes().width/2,(a* starsSecondLayer.getSizes().height)+(starsSecondLayer.getSizes().height/2)+deslocC);
             }
         }
 
         for (int i=0; i<2; i++) {
             for(int a=-1; a<3; a++) {
-                j2d.drawSprite(starThirdLayer, (i* starThirdLayer.getSizes().v0)+ starThirdLayer.getSizes().v0/2,(a* starThirdLayer.getSizes().v1)+(starThirdLayer.getSizes().v1/2)+deslocD);
+                j2DCanvas.drawSprite(starThirdLayer, (i* starThirdLayer.getSizes().width)+ starThirdLayer.getSizes().width/2,(a* starThirdLayer.getSizes().height)+(starThirdLayer.getSizes().height/2)+deslocD);
             }
         }
     }

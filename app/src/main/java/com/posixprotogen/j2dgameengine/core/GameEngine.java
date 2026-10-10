@@ -9,53 +9,34 @@ import com.posixprotogen.j2dgameengine.core.listeners.RenderListener;
 import com.posixprotogen.j2dgameengine.core.utils.GLVec2f;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
 public class GameEngine {
 
-    private J2DCanvas j2d;
-    private ArrayList<AbstractEntity> entities = new ArrayList<>();
-    private ArrayList<AbstractEntity> newEntities = new ArrayList<>();
-    private GLVec2f display = new GLVec2f();
+
     private int framesPerSecond;
-    private float lastFrameTime;
-    private SpriteLoader spriteLoader;
     private Context context;
-    private RenderView renderView;
+    private RendererSurfaceView rendererSurfaceView;
     private float realX;
     private float realY;
-    private ArrayList<GestureListener> gestureListeners = new ArrayList<>();
 
-    public GameEngine(Context context, RendererEngine rendererEngine, RenderView renderView){
+    private final GameWorld gameWorld = new GameWorld();
+
+    public RendererSurfaceView setupEngine(Context context) {
         this.context = context;
-        rendererEngine.setRenderListener(new RenderListenerImp(this));
-        this.renderView = renderView;
-    }
 
-    public void addEntity(AbstractEntity entity) {
-        entity.setGameEngine(this);
-        newEntities.add(entity);
+        RendererEngine rendererEngine = new RendererEngine();
+        rendererEngine.setRenderListener(new RenderListenerImp(this));
+
+        this.rendererSurfaceView = new RendererSurfaceView(context, rendererEngine);
+
+        return this.rendererSurfaceView;
     }
 
     public int getFramesPerSecond() {
         return framesPerSecond;
-    }
-
-    public float getLastFrameTime() {
-        return lastFrameTime;
-    }
-
-    public float getWidth() {
-        return display.v0;
-    }
-
-    public float getHeight() {
-        return display.v1;
-    }
-
-    public void addTouchListener(GestureListener listener){
-        gestureListeners.add(listener);
     }
 
     class RenderListenerImp implements RenderListener {
@@ -68,8 +49,7 @@ public class GameEngine {
 
         @Override
         public void onDisplayChanged(float w, float x, float h, float y) {
-            display.v0 = w;
-            display.v1 = h;
+            gameWorld.setDisplay(new GLVec2f(w, h));
             realX = x;
             realY = y;
         }
@@ -81,33 +61,36 @@ public class GameEngine {
 
         @Override
         public void onFrameTime(float frameTime) {
-            lastFrameTime = frameTime;
+            gameWorld.setLastFrameTime(frameTime);
         }
 
         @Override
         public void onBegin(GL10 gl) {
-            j2d = new J2DCanvas(gl, display, context);
-            spriteLoader = new SpriteLoader(gl, context);
-            J2DGameEngineMain main = new J2DGameEngineMain();
-            main.loadTextures(spriteLoader);
-            main.setupEntitiesGame(gameEngine);
+            J2DCanvas j2DCanvas = new J2DCanvas(gl, gameWorld.getDisplay(), context);
+            gameWorld.setJ2DCanvas(j2DCanvas);
 
-            renderView.setTouchListener((event, x, y) -> {
+            SpriteLoader spriteLoader = new SpriteLoader(gl, context);
+            gameWorld.setSpriteLoader(spriteLoader);
+
+            new J2DGameEngineMain().setupGame(gameWorld);
+
+            rendererSurfaceView.setTouchListener((event, x, y) -> {
                 float posY = y/realY;
-                float posX = (x/realX)*display.v0;
+                float posX = (x/realX) * gameWorld.getDisplay().width;
+                List<GestureListener> gestureListeners = gameWorld.getGestureListeners();
 
                 if(event.getAction() == 0){
-                    for(GestureListener g : gestureListeners){
-                        g.onDown(posX, posY);
+                    for (int i = 0; i < gestureListeners.size(); i++) {
+                        gestureListeners.get(i).onDown(posX, posY);
                     }
 
                 } else if(event.getAction() == 1){
-                    for(GestureListener g : gestureListeners){
-                        g.onUp(posX, posY);
+                    for (int i = 0; i < gestureListeners.size(); i++) {
+                        gestureListeners.get(i).onUp(posX, posY);
                     }
                 } else {
-                    for(GestureListener g : gestureListeners){
-                        g.onMoving(posX, posY);
+                    for (int i = 0; i < gestureListeners.size(); i++) {
+                        gestureListeners.get(i).onMoving(posX, posY);
                     }
                 }
             });
@@ -115,18 +98,24 @@ public class GameEngine {
 
         @Override
         public void onSetup() {
-            for(int i=0; i<newEntities.size(); i++){
-                newEntities.get(i).setup(spriteLoader);
-                entities.add(newEntities.get(i));
+            List<AbstractEntity> pending = gameWorld.getNewEntities();
+            gameWorld.setNewEntities(new ArrayList<>());
+
+            for (int i = 0; i < pending.size(); i++) {
+                AbstractEntity newEntity = pending.get(i);
+                newEntity.setGameContext(gameWorld);
+                newEntity.setup();
+                gameWorld.getEntities().add(newEntity);
             }
-            newEntities = new ArrayList<>();
         }
 
         @Override
         public void onUpdate() {
-            ArrayList<AbstractEntity> entitiesUpdated = new ArrayList<>();
+            List<AbstractEntity> entities = gameWorld.getEntities();
+            List<AbstractEntity> entitiesUpdated = new ArrayList<>();
 
-            for (AbstractEntity entity : entities) {
+            for (int i = 0; i < entities.size(); i++) {
+                AbstractEntity entity = entities.get(i);
                 entity.update();
 
                 if(entity.isAlive()){
@@ -136,13 +125,15 @@ public class GameEngine {
                     System.out.println("Entity deleted: " + entity);
                 }
             }
-            entities = entitiesUpdated;
+            gameWorld.setEntities(entitiesUpdated);
         }
 
         @Override
         public void onDraw() {
-            for(int i=0; i<entities.size(); i++){
-                entities.get(i).draw(j2d);
+            List<AbstractEntity> entities = gameWorld.getEntities();
+
+            for (int i = 0; i < entities.size(); i++) {
+                entities.get(i).draw();
             }
         }
     }
