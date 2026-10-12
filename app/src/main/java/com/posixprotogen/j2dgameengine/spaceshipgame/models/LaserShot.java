@@ -1,9 +1,7 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
-import com.posixprotogen.j2dgameengine.core.GameContext;
-import com.posixprotogen.j2dgameengine.core.J2DCanvas;
-import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.enums.Layer;
 import com.posixprotogen.j2dgameengine.core.utils.GLRect;
 import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
 
@@ -15,7 +13,8 @@ public class LaserShot extends AbstractEntity {
     private GLSprite shot;
     private GLRect hitbox;
 
-    public LaserShot(float w) {
+    public LaserShot(float w, float h) {
+        this.h = h - 0.08f;
         this.w = w;
     }
 
@@ -41,7 +40,7 @@ public class LaserShot extends AbstractEntity {
 
     @Override
     public void draw() {
-        getGameContext().getJ2DCanvas().drawSprite(shot, w, h);
+        getGameContext().getJ2DCanvas().submit(Layer.PROJECTILE, shot, w, h);
     }
 
     public GLRect getHitbox(){

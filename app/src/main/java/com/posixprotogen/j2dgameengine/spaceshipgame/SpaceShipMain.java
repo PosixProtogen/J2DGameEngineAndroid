@@ -53,7 +53,7 @@ public class SpaceShipMain extends AbstractEntity {
         @Override
         public void onMoving(float x, float y) {
             if (moveShip) {
-                playerShip.fireAndMove(x);
+                playerShip.fireAndMove(x, y);
             }
         }
     }

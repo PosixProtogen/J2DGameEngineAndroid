@@ -1,6 +1,7 @@
 package com.posixprotogen.j2dgameengine.core;
 
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.gameworld.GameContext;
 import com.posixprotogen.j2dgameengine.core.listeners.GestureListener;
 import com.posixprotogen.j2dgameengine.core.utils.GLVec2f;
 

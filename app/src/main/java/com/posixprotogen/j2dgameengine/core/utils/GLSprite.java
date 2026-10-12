@@ -17,6 +17,7 @@ public class GLSprite {
     private float originalH = 0.0f;
     private float angle = 0.0f;
     private int numSprite = 0;
+    private GLTint tint = GLTint.NORMAL;
 
     public GLSprite(int[] textureId, FloatBuffer mFVertexBuffer, FloatBuffer mTextureBuffer, float[] vertices, GLVec2f sizes){
         this.textureId = textureId;
@@ -61,8 +62,8 @@ public class GLSprite {
     }
 
     public void resize(float size){
-        for(int i=0;i<vertices.length; i++){
-            vertices[i] = originalVertices[i]*size;
+        for (int i=0; i<vertices.length; i++) {
+            vertices[i] = originalVertices[i] * size;
         }
         this.w = originalW * size;
         this.h = originalH * size;
@@ -132,5 +133,13 @@ public class GLSprite {
 
     public float[] getVertices(){
         return vertices;
+    }
+
+    public GLTint getTint() {
+        return tint;
+    }
+
+    public void setTint(GLTint tint) {
+        this.tint = tint;
     }
 }

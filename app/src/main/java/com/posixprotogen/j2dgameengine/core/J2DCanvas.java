@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
 
+import com.posixprotogen.j2dgameengine.core.abstractions.RenderCommand;
+import com.posixprotogen.j2dgameengine.core.enums.Layer;
 import com.posixprotogen.j2dgameengine.core.utils.GLRect;
 import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
 import com.posixprotogen.j2dgameengine.core.utils.GLTint;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -24,11 +27,33 @@ public class J2DCanvas {
     private GL10 gl;
     private GLVec2f display;
     private int idTexHitbox;
+    private final CommandBucket[] buckets = new CommandBucket[Layer.values().length];
 
     public J2DCanvas(GL10 gl, GLVec2f display, Context context){
         this.gl = gl;
         this.display = display;
         loadHitboxTex(context);
+
+        for (int i = 0; i < buckets.length; i++) {
+            buckets[i] = new CommandBucket();
+        }
+    }
+
+    private static final class CommandBucket {
+        private final List<RenderCommand> commands = new ArrayList<>();
+        private int count;
+
+        private void set(GLSprite glSprite, float x, float y) {
+            RenderCommand command;
+            if (count == commands.size()) {
+                command = new RenderCommand();
+                commands.add(command);
+            } else {
+                command = commands.get(count);
+            }
+            command.set(glSprite, x, y);
+            count++;
+        }
     }
 
     private void loadHitboxTex(Context context){
@@ -66,14 +91,47 @@ public class J2DCanvas {
         idTexHitbox = textureIdArray[0];
     }
 
-    public void drawSprite(GLSprite glSprite, float x, float y){
-        drawSprite(glSprite, x, y, GLTint.NORMAL);
+    public void submit(Layer layer, GLSprite glSprite, float x, float y) {
+        buckets[layer.ordinal()].set(glSprite, x, y);
     }
 
-    public void drawSprite(GLSprite glSprite, float x, float y, GLTint tint) {
+    public void submit(Layer layer, TextSprite textSprite, float x, float y) {
+        if (textSprite == null) {
+            return;
+        }
 
+        List<GLSprite> glyphs = textSprite.getCharSprites();
+        float cursor = x;
+        float spacing = textSprite.getSpacing();
+        GLTint tint = textSprite.getTint();
+
+        for (int i = 0; i < glyphs.size(); i++) {
+            GLSprite glyph = glyphs.get(i);
+            float width = glyph.getWidht();
+            glyph.setTint(tint);
+
+            submit(layer, glyph, cursor + width * 0.5f, y);
+            cursor += width + spacing;
+        }
+    }
+
+    public void executeRenderCommands() {
+        for (int i = 0; i < buckets.length; i++) {
+            CommandBucket bucket = buckets[i];
+            int count = bucket.count;
+
+            for (int c = 0; c < count; c++) {
+                RenderCommand command = bucket.commands.get(c);
+                drawSprite(command.getGlSprite(), command.getX(), command.getY());
+            }
+            bucket.count = 0;
+        }
+    }
+
+    private void drawSprite(GLSprite glSprite, float x, float y) {
         float calcX = display.width*3*(-1) + 3*x*2;
         float calcY = 3 - 3*y*2;
+        GLTint tint = glSprite.getTint();
 
         gl.glMatrixMode(GL11.GL_MODELVIEW);
         gl.glLoadIdentity();
@@ -94,24 +152,6 @@ public class J2DCanvas {
         gl.glColor4f(1f, 1f, 1f, 1f);
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-    }
-
-    public void drawTextSprite(TextSprite textSprite, float x, float y) {
-        if (textSprite == null) {
-            return;
-        }
-
-        List<GLSprite> glyphs = textSprite.getCharSprites();
-        float cursor = x;
-        float spacing = textSprite.getSpacing();
-        GLTint tint = textSprite.getTint();
-
-        for (int i = 0; i < glyphs.size(); i++) {
-            GLSprite glyph = glyphs.get(i);
-            float width = glyph.getWidht();
-            drawSprite(glyph, cursor + width * 0.5f, y, tint);
-            cursor += width + spacing;
-        }
     }
 
     public void setBackgroundColor(float red, float green, float blue, float alpha){

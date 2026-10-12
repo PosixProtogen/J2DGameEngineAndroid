@@ -97,7 +97,10 @@ public class GameEngine {
 
             for (int i = 0; i < pending.size(); i++) {
                 AbstractEntity newEntity = pending.get(i);
-                newEntity.setGameContext(gameWorld);
+
+                if (newEntity.getGameContext() == null) {
+                    newEntity.setGameContext(gameWorld);
+                }
                 newEntity.setup();
 
                 gameWorld.addToWorld(newEntity);
@@ -133,6 +136,7 @@ public class GameEngine {
                     entity.draw();
                 }
             }
+            gameWorld.getJ2DCanvas().executeRenderCommands();
         }
     }
 }

@@ -2,6 +2,7 @@ package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
 import com.posixprotogen.j2dgameengine.core.TextSprite;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.enums.Layer;
 import com.posixprotogen.j2dgameengine.core.utils.GLTint;
 
 public class Hud extends AbstractEntity {
@@ -38,7 +39,7 @@ public class Hud extends AbstractEntity {
     @Override
     public void update() {
         if(size > 0.05f){
-            size -= 0.1f * getGameContext().getLastFrameTime();
+            size -= 0.2f * getGameContext().getLastFrameTime();
         }
 
         if (System.currentTimeMillis() > timeElapse + 2000) {
@@ -81,8 +82,8 @@ public class Hud extends AbstractEntity {
     @Override
     public void draw() {
         if (!hide) {
-            getGameContext().getJ2DCanvas().drawTextSprite(comboTextSprite, 0.01f, 0.5f);
+            getGameContext().getJ2DCanvas().submit(Layer.HUD, comboTextSprite, 0.01f, 0.5f);
         }
-        getGameContext().getJ2DCanvas().drawTextSprite(fpsSprite, 0.f, 0.02f);
+        getGameContext().getJ2DCanvas().submit(Layer.HUD, fpsSprite, 0.f, 0.02f);
     }
 }

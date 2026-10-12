@@ -2,6 +2,7 @@ package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
 import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.enums.Layer;
 import com.posixprotogen.j2dgameengine.core.utils.GLRect;
 import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
 
@@ -41,7 +42,7 @@ public class PlayerShip extends AbstractEntity {
 
     @Override
     public void draw() {
-        getGameContext().getJ2DCanvas().drawSprite(shipSprite, posX, h);
+        getGameContext().getJ2DCanvas().submit(Layer.WORLD, shipSprite, posX, h);
         //j2d.drawRect(hitboxa);
         //j2d.drawRect(hitboxb);
     }
@@ -68,7 +69,8 @@ public class PlayerShip extends AbstractEntity {
         return touchHitbox;
     }
 
-    public void fireAndMove(float posX){
+    public void fireAndMove(float posX, float y){
+        this.h = y;
         this.posX = posX;
     }
 
@@ -76,7 +78,7 @@ public class PlayerShip extends AbstractEntity {
 
     public void fire() {
         if (System.currentTimeMillis() > timeElapse+300){
-            LaserShot laserShot = new LaserShot(posX);
+            LaserShot laserShot = new LaserShot(posX, h);
             getGameContext().addEntity(laserShot);
 
             timeElapse = System.currentTimeMillis();

@@ -1,9 +1,7 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
-import com.posixprotogen.j2dgameengine.core.GameContext;
-import com.posixprotogen.j2dgameengine.core.J2DCanvas;
-import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.enums.Layer;
 import com.posixprotogen.j2dgameengine.core.utils.GLRect;
 import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
 
@@ -62,7 +60,7 @@ public class Asteroid extends AbstractEntity {
 
     @Override
     public void draw() {
-        getGameContext().getJ2DCanvas().drawSprite(asteroid, posX, h);
+        getGameContext().getJ2DCanvas().submit(Layer.WORLD, asteroid, posX, h);
         //j2d.drawRect(hitbox);
     }
 

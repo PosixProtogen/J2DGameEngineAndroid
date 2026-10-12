@@ -1,9 +1,7 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
-import com.posixprotogen.j2dgameengine.core.GameContext;
-import com.posixprotogen.j2dgameengine.core.J2DCanvas;
-import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.enums.Layer;
 import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
 
 public class Explosion extends AbstractEntity {
@@ -45,6 +43,6 @@ public class Explosion extends AbstractEntity {
 
     @Override
     public void draw() {
-        getGameContext().getJ2DCanvas().drawSprite(explosion, x, y);
+        getGameContext().getJ2DCanvas().submit(Layer.EFFECT, explosion, x, y);
     }
 }
