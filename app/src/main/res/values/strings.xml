@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">J2DGameEngineAndroid</string>
+    <string name="attribution_tag_default" translatable="false"></string>
+    <string name="attribution_audio_label">Áudio do jogo</string>
 </resources>

@@ -15,7 +15,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class GameEngine {
 
-    private int framesPerSecond;
     private Context context;
     private RendererSurfaceView rendererSurfaceView;
     private float realX;
@@ -34,10 +33,6 @@ public class GameEngine {
         return this.rendererSurfaceView;
     }
 
-    public int getFramesPerSecond() {
-        return framesPerSecond;
-    }
-
     class RenderListenerImp implements RenderListener {
 
         @Override
@@ -49,7 +44,7 @@ public class GameEngine {
 
         @Override
         public void onFramePerSecond(int fps) {
-            framesPerSecond = fps;
+            gameWorld.setFps(fps);
         }
 
         @Override
@@ -67,6 +62,9 @@ public class GameEngine {
 
             SoundPlayer soundPlayer = new SoundPlayer(context);
             gameWorld.setSoundPlayer(soundPlayer);
+
+            TextLoader textLoader = new TextLoader(spriteLoader, context);
+            gameWorld.setTextLoader(textLoader);
 
             new J2DGameEngineMain().setupGame(gameWorld);
 

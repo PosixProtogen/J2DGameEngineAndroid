@@ -2,7 +2,7 @@ package com.posixprotogen.j2dgameengine.spaceshipgame.gamelogic;
 
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
 import com.posixprotogen.j2dgameengine.spaceshipgame.models.Asteroid;
-import com.posixprotogen.j2dgameengine.spaceshipgame.models.ComboText;
+import com.posixprotogen.j2dgameengine.spaceshipgame.models.Hud;
 import com.posixprotogen.j2dgameengine.spaceshipgame.models.LaserShot;
 import com.posixprotogen.j2dgameengine.spaceshipgame.models.PlayerShip;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class CollisionCore extends AbstractEntity {
 
     private PlayerShip playerShip;
-    private ComboText comboText;
+    private Hud hud;
 
     public CollisionCore(PlayerShip playerShip) {
         this.playerShip = playerShip;
@@ -19,8 +19,8 @@ public class CollisionCore extends AbstractEntity {
 
     @Override
     public void setup() {
-        comboText = new ComboText();
-        getGameContext().addEntity(comboText);
+        hud = new Hud();
+        getGameContext().addEntity(hud);
     }
 
     @Override
@@ -39,14 +39,14 @@ public class CollisionCore extends AbstractEntity {
                 }
 
                 if(asteroid.getHitbox().intersect(laserShot.getHitbox()) && laserShot.isAlive()){
-                    comboText.incrementCounter();
+                    hud.incrementCounter();
                     asteroid.explode();
                     laserShot.destroy();
                 }
             }
 
             if (playerShip.isHitMe(asteroid.getHitbox())) {
-                comboText.resetCounter();
+                hud.resetCounter();
                 asteroid.explode();
             }
         }

@@ -14,7 +14,6 @@ public class J2DGameEngineMain {
         spriteLoader.addTexture("explosionb.png", 4, 4);
         spriteLoader.addTexture("asteroidb.png");
         spriteLoader.addTexture("shot.png");
-        spriteLoader.addTexture("alphabet.png", 17, 3);
 
         gameContext.getSoundPlayer().addSound("sounds/laser_shot.wav");
         gameContext.getSoundPlayer().addSound("sounds/explosion.wav");

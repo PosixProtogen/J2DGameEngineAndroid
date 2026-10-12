@@ -9,6 +9,8 @@ import java.util.List;
 public interface GameContext {
     float getLastFrameTime();
 
+    int getFps();
+
     GLVec2f getDisplay();
 
     void addEntity(AbstractEntity entity);
@@ -24,4 +26,6 @@ public interface GameContext {
     J2DCanvas getJ2DCanvas();
 
     SoundPlayer getSoundPlayer();
+
+    TextLoader getTextLoader();
 }

@@ -1,6 +1,9 @@
 package com.posixprotogen.j2dgameengine.core;
 
+import android.opengl.EGL14;
+import android.opengl.EGLDisplay;
 import android.opengl.GLSurfaceView;
+
 import com.posixprotogen.j2dgameengine.core.listeners.RenderListener;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -9,12 +12,13 @@ import javax.microedition.khronos.opengles.GL11;
 public class RendererEngine implements GLSurfaceView.Renderer {
 
     private RenderListener renderListener;
-    private long frameTime = 0;
-    private int frameCount = 0;
-    public long currentTimeTick = System.currentTimeMillis() - 1;
+    private long sampleStart = System.nanoTime();
+    public long currentTimeTick = System.nanoTime();
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        disableVsync();
+
         gl.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_FASTEST);
 
         gl.glClearColor(.5f,.5f,.5f,1.0f);
@@ -30,6 +34,7 @@ public class RendererEngine implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
+        disableVsync();
         gl.glViewport(0, 0, width, height);
 
         float ratio = (float) width / height;
@@ -51,20 +56,28 @@ public class RendererEngine implements GLSurfaceView.Renderer {
         renderListener.onUpdate();
         renderListener.onDraw();
 
-        if (System.currentTimeMillis() > (frameTime+500)) {
-            System.out.println("FPS " + frameCount * 2);
-            renderListener.onFramePerSecond(frameCount * 2);
-            frameCount = 0;
-            frameTime = System.currentTimeMillis();
-        }
-        frameCount++;
+        long now = System.nanoTime();
+        long deltaNanos = now - currentTimeTick;
+        currentTimeTick = now;
 
-        renderListener.onFrameTime((System.currentTimeMillis() - currentTimeTick)/1000.0f);
-        currentTimeTick = System.currentTimeMillis();
+        renderListener.onFrameTime(deltaNanos / 1_000_000_000f);
+
+        if (now >= sampleStart + 100_000_000L && deltaNanos > 0) {
+            int fps = (int) (1_000_000_000d / deltaNanos);
+            renderListener.onFramePerSecond(fps);
+            sampleStart = now;
+        }
     }
 
     public void setRenderListener(RenderListener renderListener){
         this.renderListener = renderListener;
+    }
+
+    private void disableVsync() {
+        EGLDisplay display = EGL14.eglGetCurrentDisplay();
+        if (display == EGL14.EGL_NO_DISPLAY || !EGL14.eglSwapInterval(display, 0)) {
+            System.out.println("eglSwapInterval(0) failed");
+        }
     }
 
 }

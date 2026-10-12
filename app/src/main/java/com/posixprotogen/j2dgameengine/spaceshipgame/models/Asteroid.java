@@ -42,10 +42,10 @@ public class Asteroid extends AbstractEntity {
     public void update() {
         h += speed * getGameContext().getLastFrameTime();
 
-        if(direction == 0){
-            angle += (0.1f * (speed*10));
+        if (direction == 0) {
+            angle += ((8.8f * getGameContext().getLastFrameTime()) * (speed*10));
         } else {
-            angle -= (0.1f * (speed*10));
+            angle -= ((8.8f * getGameContext().getLastFrameTime()) * (speed*10));
         }
 
         asteroid.setAngle(angle);

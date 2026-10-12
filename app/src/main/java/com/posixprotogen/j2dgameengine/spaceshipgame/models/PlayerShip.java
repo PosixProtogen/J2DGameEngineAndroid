@@ -1,13 +1,9 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
-import com.posixprotogen.j2dgameengine.core.GameContext;
-import com.posixprotogen.j2dgameengine.core.J2DCanvas;
 import com.posixprotogen.j2dgameengine.core.SpriteLoader;
 import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
 import com.posixprotogen.j2dgameengine.core.utils.GLRect;
 import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
-
-import java.util.ArrayList;
 
 public class PlayerShip extends AbstractEntity {
 

@@ -12,6 +12,8 @@ import java.util.Map;
 class GameWorld implements GameContext {
     private float lastFrameTime = 0f;
 
+    private int fps = 0;
+
     private GLVec2f display = new GLVec2f();
 
     private List<AbstractEntity> newEntities = new ArrayList<>();
@@ -30,9 +32,16 @@ class GameWorld implements GameContext {
 
     private SoundPlayer soundPlayer;
 
+    private TextLoader textLoader;
+
     @Override
     public float getLastFrameTime() {
         return lastFrameTime;
+    }
+
+    @Override
+    public int getFps() {
+        return fps;
     }
 
     @Override
@@ -50,6 +59,7 @@ class GameWorld implements GameContext {
         deadEntities.add(entity);
     }
 
+    @Override
     public <T extends AbstractEntity> List<T> getEntities(Class<T> clazz) {
         if (!entitiesByType.containsKey(clazz)){
             return new ArrayList<>();
@@ -79,6 +89,10 @@ class GameWorld implements GameContext {
 
     public void setLastFrameTime(float lastFrameTime) {
         this.lastFrameTime = lastFrameTime;
+    }
+
+    public void setFps(int fps) {
+        this.fps = fps;
     }
 
     public void setDisplay(GLVec2f display) {
@@ -119,6 +133,15 @@ class GameWorld implements GameContext {
 
     public void setSoundPlayer(SoundPlayer soundPlayer) {
         this.soundPlayer = soundPlayer;
+    }
+
+    @Override
+    public TextLoader getTextLoader() {
+        return textLoader;
+    }
+
+    public void setTextLoader(TextLoader textLoader) {
+        this.textLoader = textLoader;
     }
 
     public void addToWorld(AbstractEntity entity) {

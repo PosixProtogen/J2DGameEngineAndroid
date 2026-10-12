@@ -14,7 +14,7 @@ O código do app está em Java 17. O pacote é `com.posixprotogen.j2dgameengine`
 
 Segurar o dedo em cima da nave move ela e mantém o tiro. Soltar para o disparo. O fundo rola enquanto os asteroides continuam aparecendo, então a partida não tem fim: a meta é sustentar a sequência.
 
-`J2DGameEngineMain` carrega as texturas e os sons e coloca `SpaceShipMain` no motor. `CollisionCore` compara os tiros e a nave com os asteroides, e `ComboText` desenha o número na tela.
+`J2DGameEngineMain` carrega as texturas e os sons e coloca `SpaceShipMain` no motor. `CollisionCore` compara os tiros e a nave com os asteroides, e `Hud` desenha o número na tela.
 
 ## Como fazer um jogo
 

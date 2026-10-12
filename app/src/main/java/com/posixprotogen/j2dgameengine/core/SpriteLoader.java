@@ -36,7 +36,7 @@ public class SpriteLoader {
             throw new RuntimeException(e);
         }
 
-        texturePool.put(file, loadImage(tempImage));
+        texturePool.put(file, createSprite(tempImage));
 
         for (int i=0; i<tempImage.length; i++) {
             tempImage[i].recycle();
@@ -60,7 +60,7 @@ public class SpriteLoader {
                 bitmapArray[j+(cutW*i)] = Bitmap.createBitmap(bitmap,j*w,i*h,w,h);
             }
         }
-        texturePool.put(file, loadImage(bitmapArray));
+        texturePool.put(file, createSprite(bitmapArray));
 
         for (int i=0; i<bitmapArray.length; i++) {
             bitmapArray[i].recycle();
@@ -71,7 +71,7 @@ public class SpriteLoader {
         return new GLSprite(texturePool.get(file));
     }
 
-    private GLSprite loadImage(Bitmap[] bitmap) {
+    public GLSprite createSprite(Bitmap... bitmap) {
         float xa = -1.0f;
         float xb = 1.0f;
         float ya = 1.0f;
@@ -137,10 +137,26 @@ public class SpriteLoader {
 
             GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap[i], 0);
 
-            gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
+            applySampling();
 
             textureLoad[i] = textures[i];
         }
         return new GLSprite(textureLoad, mFVertexBuffer, mTextureBuffer, vertices, resolution);
+    }
+
+    public void release(GLSprite sprite) {
+        if (sprite == null) {
+            return;
+        }
+
+        int[] ids = new int[]{sprite.getTextureId()};
+        gl.glDeleteTextures(1, ids, 0);
+    }
+
+    private void applySampling() {
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
     }
 }
