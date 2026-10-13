@@ -10,7 +10,7 @@ O código do app está em Java 17. O pacote é `com.posixprotogen.j2dgameengine`
 
 ![Nave atirando nos asteroides, com o contador na tela](docs/jogo_exemplo.gif)
 
-É um jogo de nave. Asteroides descem pela tela e o objetiv****o é destruir o maior número possível, atirando neles. Cada asteroide destruído soma um no contador. Se um asteroide acerta a nave, o contador volta para zero.
+É um jogo de nave. Asteroides descem pela tela e o objetivo é destruir o maior número possível, atirando neles. Cada asteroide destruído soma um no contador. Se um asteroide acerta a nave, o contador volta para zero.
 
 Segurar o dedo em cima da nave move ela e mantém o tiro. Soltar para o disparo. O fundo rola enquanto os asteroides continuam aparecendo, então a partida não tem fim: a meta é sustentar a sequência.
 
