@@ -264,7 +264,7 @@ Também tem código para limpar. Ainda tem coisa que escrevi em 2019, e coisa qu
 
 Se tiver uma ideia para complementar a engine, ou quiser ajudar a produzir a tech demo, abre um PR que eu reviso. Eu não sei desenhar, então música e código são a parte que eu faço.
 
-## Desenvolvimento
+## Considerações finais
 
 Utilizei o Grok Build como ferramenta de auxílio, revisão e para tirar dúvidas sobre o funcionamento do OpenGL, principalmente, já que essa não é a minha área. A ferramenta me permitiu destravar o desenvolvimento deste projeto. Antes eu teria que me dedicar horas a fio procurando literatura sobre o OpenGL ES 1, que já é uma API datada. Este projeto acabou sendo uma experiência de programação em par e um estudo pessoal do impacto na produtividade com programação auxiliada por agentes de inteligência artificial. Ao mesmo tempo, não se trata de um projeto vibe codado: cada linha e cada decisão, inclusive a arquitetural, foi revisada e aceita por mim. A conclusão é que o agente foi de grande ajuda como copiloto, mas o sucesso só tem sido possível com intensa revisão e tomadas de decisão humanas. Isso só deu certo porque eu já tenho um conhecimento técnico bem avançado em Java. Tentar construir uma aplicação sem conhecimento prévio nenhum, só com agentes, é o que me deixa cético quanto à geração de software completamente vibe codado.
 
