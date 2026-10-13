@@ -4,7 +4,7 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 
-import com.posixprotogen.j2dgameengine.core.listeners.TouchListener;
+import com.posixprotogen.j2dgameengine.core.input.TouchListener;
 
 public class RendererSurfaceView extends GLSurfaceView {
 

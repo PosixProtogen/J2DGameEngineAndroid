@@ -1,6 +1,6 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.gamelogic;
 
-import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.entity.AbstractEntity;
 import com.posixprotogen.j2dgameengine.spaceshipgame.models.Asteroid;
 import com.posixprotogen.j2dgameengine.spaceshipgame.models.Hud;
 import com.posixprotogen.j2dgameengine.spaceshipgame.models.LaserShot;

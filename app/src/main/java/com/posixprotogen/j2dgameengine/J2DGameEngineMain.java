@@ -1,7 +1,7 @@
 package com.posixprotogen.j2dgameengine;
 
-import com.posixprotogen.j2dgameengine.core.gameworld.GameContext;
-import com.posixprotogen.j2dgameengine.core.SpriteLoader;
+import com.posixprotogen.j2dgameengine.core.GameContext;
+import com.posixprotogen.j2dgameengine.core.assets.SpriteLoader;
 import com.posixprotogen.j2dgameengine.spaceshipgame.SpaceShipMain;
 
 public class J2DGameEngineMain {

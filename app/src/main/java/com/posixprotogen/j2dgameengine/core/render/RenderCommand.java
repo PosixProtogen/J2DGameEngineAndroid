@@ -1,6 +1,5 @@
-package com.posixprotogen.j2dgameengine.core.abstractions;
+package com.posixprotogen.j2dgameengine.core.render;
 
-import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
 
 public class RenderCommand {
     private GLSprite glSprite;

@@ -1,4 +1,4 @@
-package com.posixprotogen.j2dgameengine.core.utils;
+package com.posixprotogen.j2dgameengine.core.render;
 
 public class GLTint {
 

@@ -1,9 +1,9 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
-import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
-import com.posixprotogen.j2dgameengine.core.enums.Layer;
-import com.posixprotogen.j2dgameengine.core.utils.GLRect;
-import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
+import com.posixprotogen.j2dgameengine.core.entity.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.render.Layer;
+import com.posixprotogen.j2dgameengine.core.render.GLRect;
+import com.posixprotogen.j2dgameengine.core.render.GLSprite;
 
 public class LaserShot extends AbstractEntity {
 

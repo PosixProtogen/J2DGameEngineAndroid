@@ -1,7 +1,7 @@
-package com.posixprotogen.j2dgameengine.core.abstractions;
+package com.posixprotogen.j2dgameengine.core.entity;
 
-import com.posixprotogen.j2dgameengine.core.gameworld.GameContext;
-import com.posixprotogen.j2dgameengine.core.utils.GLVec2f;
+import com.posixprotogen.j2dgameengine.core.GameContext;
+import com.posixprotogen.j2dgameengine.core.render.GLVec2f;
 
 public abstract class AbstractEntity {
 

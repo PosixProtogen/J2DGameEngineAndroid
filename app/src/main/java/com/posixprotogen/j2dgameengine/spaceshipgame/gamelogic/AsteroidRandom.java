@@ -1,10 +1,8 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.gamelogic;
 
-import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.entity.AbstractEntity;
 import com.posixprotogen.j2dgameengine.spaceshipgame.models.Asteroid;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class AsteroidRandom extends AbstractEntity {

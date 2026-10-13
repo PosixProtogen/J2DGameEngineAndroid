@@ -1,11 +1,11 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame.models;
 
-import com.posixprotogen.j2dgameengine.core.J2DCanvas;
-import com.posixprotogen.j2dgameengine.core.SpriteLoader;
-import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
-import com.posixprotogen.j2dgameengine.core.enums.Layer;
-import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
-import com.posixprotogen.j2dgameengine.core.utils.GLVec2f;
+import com.posixprotogen.j2dgameengine.core.render.J2DCanvas;
+import com.posixprotogen.j2dgameengine.core.assets.SpriteLoader;
+import com.posixprotogen.j2dgameengine.core.entity.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.render.Layer;
+import com.posixprotogen.j2dgameengine.core.render.GLSprite;
+import com.posixprotogen.j2dgameengine.core.render.GLVec2f;
 
 public class SpaceBackground extends AbstractEntity {
     private GLSprite background;

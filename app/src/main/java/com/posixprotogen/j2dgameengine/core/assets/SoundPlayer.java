@@ -1,4 +1,4 @@
-package com.posixprotogen.j2dgameengine.core;
+package com.posixprotogen.j2dgameengine.core.assets;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;

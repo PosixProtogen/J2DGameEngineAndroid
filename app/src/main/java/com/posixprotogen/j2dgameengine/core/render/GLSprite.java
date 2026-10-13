@@ -1,4 +1,4 @@
-package com.posixprotogen.j2dgameengine.core.utils;
+package com.posixprotogen.j2dgameengine.core.render;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

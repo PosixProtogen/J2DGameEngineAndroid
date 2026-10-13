@@ -1,4 +1,4 @@
-package com.posixprotogen.j2dgameengine.core.listeners;
+package com.posixprotogen.j2dgameengine.core.input;
 
 public interface GestureListener {
     void onDown(float x, float y);

@@ -1,9 +1,9 @@
 package com.posixprotogen.j2dgameengine.spaceshipgame;
 
 
-import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
-import com.posixprotogen.j2dgameengine.core.listeners.GestureListener;
-import com.posixprotogen.j2dgameengine.core.utils.GLRect;
+import com.posixprotogen.j2dgameengine.core.entity.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.input.GestureListener;
+import com.posixprotogen.j2dgameengine.core.render.GLRect;
 import com.posixprotogen.j2dgameengine.spaceshipgame.gamelogic.AsteroidRandom;
 import com.posixprotogen.j2dgameengine.spaceshipgame.gamelogic.CollisionCore;
 import com.posixprotogen.j2dgameengine.spaceshipgame.models.PlayerShip;

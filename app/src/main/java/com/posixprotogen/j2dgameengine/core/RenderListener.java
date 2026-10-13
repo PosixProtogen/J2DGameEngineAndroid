@@ -1,4 +1,4 @@
-package com.posixprotogen.j2dgameengine.core.listeners;
+package com.posixprotogen.j2dgameengine.core;
 
 import javax.microedition.khronos.opengles.GL10;
 

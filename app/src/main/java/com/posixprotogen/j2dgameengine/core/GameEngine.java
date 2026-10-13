@@ -3,10 +3,13 @@ package com.posixprotogen.j2dgameengine.core;
 import android.content.Context;
 
 import com.posixprotogen.j2dgameengine.J2DGameEngineMain;
-import com.posixprotogen.j2dgameengine.core.abstractions.AbstractEntity;
-import com.posixprotogen.j2dgameengine.core.listeners.GestureListener;
-import com.posixprotogen.j2dgameengine.core.listeners.RenderListener;
-import com.posixprotogen.j2dgameengine.core.utils.GLVec2f;
+import com.posixprotogen.j2dgameengine.core.assets.SoundPlayer;
+import com.posixprotogen.j2dgameengine.core.assets.SpriteLoader;
+import com.posixprotogen.j2dgameengine.core.assets.TextLoader;
+import com.posixprotogen.j2dgameengine.core.entity.AbstractEntity;
+import com.posixprotogen.j2dgameengine.core.input.GestureListener;
+import com.posixprotogen.j2dgameengine.core.render.GLVec2f;
+import com.posixprotogen.j2dgameengine.core.render.J2DCanvas;
 
 import java.util.ArrayList;
 import java.util.List;

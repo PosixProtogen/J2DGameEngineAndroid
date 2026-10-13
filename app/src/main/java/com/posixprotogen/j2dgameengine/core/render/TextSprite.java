@@ -1,7 +1,5 @@
-package com.posixprotogen.j2dgameengine.core;
+package com.posixprotogen.j2dgameengine.core.render;
 
-import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
-import com.posixprotogen.j2dgameengine.core.utils.GLTint;
 
 import java.util.ArrayList;
 import java.util.List;

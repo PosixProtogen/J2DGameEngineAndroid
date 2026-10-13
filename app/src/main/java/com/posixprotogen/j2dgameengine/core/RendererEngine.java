@@ -4,7 +4,6 @@ import android.opengl.EGL14;
 import android.opengl.EGLDisplay;
 import android.opengl.GLSurfaceView;
 
-import com.posixprotogen.j2dgameengine.core.listeners.RenderListener;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.opengles.GL11;

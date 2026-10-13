@@ -1,16 +1,10 @@
-package com.posixprotogen.j2dgameengine.core;
+package com.posixprotogen.j2dgameengine.core.render;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
 
-import com.posixprotogen.j2dgameengine.core.abstractions.RenderCommand;
-import com.posixprotogen.j2dgameengine.core.enums.Layer;
-import com.posixprotogen.j2dgameengine.core.utils.GLRect;
-import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
-import com.posixprotogen.j2dgameengine.core.utils.GLTint;
-import com.posixprotogen.j2dgameengine.core.utils.GLVec2f;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

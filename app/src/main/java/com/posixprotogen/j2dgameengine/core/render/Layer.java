@@ -1,4 +1,4 @@
-package com.posixprotogen.j2dgameengine.core.enums;
+package com.posixprotogen.j2dgameengine.core.render;
 
 /**
  * Camadas de desenho, da mais funda para a mais da frente.

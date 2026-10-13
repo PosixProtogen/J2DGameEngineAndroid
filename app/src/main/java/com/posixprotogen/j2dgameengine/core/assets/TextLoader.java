@@ -1,4 +1,4 @@
-package com.posixprotogen.j2dgameengine.core;
+package com.posixprotogen.j2dgameengine.core.assets;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,7 +8,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
-import com.posixprotogen.j2dgameengine.core.utils.GLSprite;
+import com.posixprotogen.j2dgameengine.core.render.GLSprite;
+import com.posixprotogen.j2dgameengine.core.render.TextSprite;
 
 import java.util.HashMap;
 import java.util.Map;
