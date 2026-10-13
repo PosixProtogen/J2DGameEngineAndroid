@@ -244,7 +244,7 @@ Quero passar o desenho para OpenGL ES 3. Hoje está no ES 1, com `glTranslate`, 
 
 A nave ainda é uma tech demo pela metade. Ela atira, colide, explode, conta o combo e toca a música. A ideia é fechar um ciclo: menu, um level, pausa, e a tela de quando o asteroide acerta, voltando para o menu. `MENU` e `OVERLAY` já estão lá para isso. O título e os botões podem ser a Orbitron. Um painel atrás do texto já basta. A `MainActivity` também cria o `GameEngine` e larga ele no `onCreate`: não pausa nem solta o som, então a música segue com o app em segundo plano.
 
-Os sprites da partida não são meus. Preciso desenhar os que o jogo realmente usa: `ship.png`, `shot.png`, `asteroidb.png`, `background.png`, `starsoneb.png` e `explosionb.png`. A explosão é uma grade 4×4, porque o `addTexture` corta assim. As estrelas são a mesma imagem nas três faixas. O resto da pasta de assets não entra na partida. A música já é minha.
+Dos desenhos da partida, os únicos meus são o fundo e as estrelas, `background.png` e `starsoneb.png`. A mesma imagem de estrelas entra nas três faixas. Ainda preciso desenhar `ship.png`, `shot.png`, `asteroidb.png` e `explosionb.png`. A explosão é uma grade 4×4, porque o `addTexture` corta assim. O resto da pasta de assets não entra na partida. A música já é minha.
 
 Também falta um facilitador para saber em que estado o jogo está. Menu, jogando, pausado, game over. Sem isso, quando a pessoa sai e volta, a partida não tem de onde continuar.
 
@@ -254,7 +254,7 @@ Também falta um sistema de coordenadas para os jogos. Hoje o `x` e o `y` do `su
 
 As letras são centralizadas na vertical. O meio do `b` fica na mesma altura que o meio do `g`, mas o `g` devia descer um pouco, por causa da perninha. Para sentar as duas na mesma linha, o atlas tem que lembrar onde fica o chão de cada letra.
 
-Linha e retângulo ainda não passam pelo `submit`. O `drawRect` desenha na hora, antes dos buckets, e o resto da cena pinta por cima.
+Também falta um jeito de desenhar direto pelo OpenGL. Hoje o jogo só emite sprite e texto. Linha e outras primitivas ainda não têm caminho.
 
 Cada letra também é uma textura só dela, então uma palavra troca de bind o tempo todo. A ideia é pôr o alfabeto numa textura só e recortar cada letra pelo OpenGL. Também não faço ideia de como fazer isso ainda. Se o comando seguinte usar a mesma textura e o mesmo estado, dá para não mandar de novo, sem mexer na ordem do bucket.
 
